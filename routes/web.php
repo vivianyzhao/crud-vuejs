@@ -21,6 +21,24 @@ Route::get('users', function () {
 	return App\User::all();
 });
 
+Route::get('users/{id}', function ($id) {
+	return App\User::findOrFail($id);
+});
+
+Route::post('users', function () {
+	return App\User::create(Request::all());
+});
+
+Route::patch('users/{id}', function ($id) {
+	App\User::findOrFail($id)->update(Request::all());
+	return Response::json(Request::all());
+});
+
+Route::delete('users/{id}', function ($id) {
+	return App\User::destroy($id);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
